@@ -1,0 +1,31 @@
+NMAP
+----
+
+Discovered open port 443/tcp on 192.168.55.136
+Discovered open port 22/tcp on 192.168.55.136
+Discovered open port 80/tcp on 192.168.55.136
+Discovered open port 25/tcp on 192.168.55.136
+Discovered open port 389/tcp on 192.168.55.136
+
+Directory Listing
+-----------------
+
+wfuzz -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 --sc 200,301,302,303,304,305,401,402,403 -u http://192.168.160.136/FUZZ
+
+Nagios endpoint with status code 401 is identified.
+
+Bruteforce
+----------
+
+Asks for authentication, after some hit and trial the credential username nagiosadmin and password nagios provides successfull login.
+
+Once authenticated we search for possible ways to get a foot hold on the system. Searching through searchsploit nagios xi seems to have a know vulnerability.
+
+Searchsploit
+------------
+
+Nagios XI 5.6.5 - Remote Code Execution / Root Privilege Escalation                                                                                                                                       | php/webapps/47299.php
+
+Troubleshooting and executing the php code provides initial access into the system and the proof.txt can be found on the root directory.
+
+
